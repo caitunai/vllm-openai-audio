@@ -17,7 +17,8 @@ RUN apt-get update && apt-get install -y \
     && uv venv \
     && . .venv/bin/activate \
     && uv pip install --no-cache-dir vllm torch torchaudio --extra-index-url https://download.pytorch.org/whl/cu128 --extra-index-url https://wheels.vllm.ai/nightly/cu128 --index-strategy unsafe-best-match \
-    && uv pip install --no-cache-dir "vllm[audio]"
+    && uv pip install --no-cache-dir "vllm[audio]" \
+    && which vllm
 
 ENV PATH="/.venv/bin:$PATH"
 ENV VIRTUAL_ENV="/.venv"
