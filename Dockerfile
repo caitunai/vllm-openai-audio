@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu24.04
+FROM nvidia/cuda:12.8.1-devel-ubuntu24.04
 
 # 设置环境变量，避免交互式安装阻塞
 ENV DEBIAN_FRONTEND=noninteractive
@@ -21,4 +21,4 @@ RUN apt-get update && apt-get install -y \
 
 EXPOSE 8000
 
-ENTRYPOINT ["vllm" "serve"]
+ENTRYPOINT ["vllm", "serve"]
