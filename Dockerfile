@@ -16,8 +16,8 @@ RUN apt-get update && apt-get install -y \
     && . $HOME/.local/bin/env \
     && uv venv \
     && . .venv/bin/activate \
-    && uv pip install --no-cache-dir torch torchaudio --index-url https://download.pytorch.org/whl/cu128 --extra-index-url https://wheels.vllm.ai/nightly/cu128 --index-strategy unsafe-best-match \
-    && uv pip install --no-cache-dir vllm "vllm[audio]" --index-url https://download.pytorch.org/whl/cu128 --extra-index-url https://wheels.vllm.ai/nightly/cu128 --index-strategy unsafe-best-match
+    && uv pip install --no-cache-dir vllm torch torchaudio --extra-index-url https://download.pytorch.org/whl/cu128 --extra-index-url https://wheels.vllm.ai/nightly/cu128 --index-strategy unsafe-best-match \
+    && uv pip install --no-cache-dir "vllm[audio]"
 
 EXPOSE 8000
 
