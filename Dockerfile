@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
     && . $HOME/.local/bin/env \
     && uv venv \
     && . .venv/bin/activate \
-    && uv pip install -U --pre --no-cache-dir vllm --torch-backend=auto \
+    && uv pip install -U --no-cache-dir vllm --torch-backend=auto \
     && uv pip install --no-cache-dir "vllm[audio]" \
     && which vllm
 
