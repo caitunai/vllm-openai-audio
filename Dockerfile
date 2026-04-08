@@ -1,4 +1,30 @@
-FROM vllm/vllm-openai:v0.19.0-cu130-ubuntu2404
+FROM nvidia/cuda:12.8.0-devel-ubuntu22.04
 
-RUN uv pip install --system --no-cache-dir -U vllm torch torchvision torchaudio \
-    && uv pip install --system --no-cache-dir "vllm[audio]"
+# 设置环境变量，避免交互式安装阻塞
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TORCH_CUDA_ARCH_LIST="8.9;9.0;10.0+PTX"
+
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    && add-apt-repository ppa:deadsnakes/ppa -y \
+    && apt-get update && apt-get install -y \
+    python3.12 \
+    python3.12-dev \
+    python3-pip \
+    git \
+    wget \
+    && rm -rf /var/lib/apt/lists/* \
+    && ln -s /usr/bin/python3.12 /usr/bin/python \
+    && wget -qO- https://astral.sh/uv/install.sh | sh \
+    && . $HOME/.local/bin/env \
+    && uv venv \
+    && . .venv/bin/activate \
+    && uv pip install -U --no-cache-dir vllm "vllm[audio]" --extra-index-url https://wheels.vllm.ai/nightly/cu128 --extra-index-url https://download.pytorch.org/whl/cu128 --index-strategy unsafe-best-match \
+    && which vllm
+
+ENV PATH="/.venv/bin:$PATH"
+ENV VIRTUAL_ENV="/.venv"
+
+EXPOSE 8000
+
+ENTRYPOINT ["vllm", "serve"]
