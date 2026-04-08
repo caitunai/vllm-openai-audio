@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
     && . $HOME/.local/bin/env \
     && uv venv \
     && . .venv/bin/activate \
-    && uv pip install -U --no-cache-dir vllm --extra-index-url https://wheels.vllm.ai/nightly/cu128 --extra-index-url https://download.pytorch.org/whl/cu128 --index-strategy unsafe-best-match \
+    && uv pip install -U --no-cache-dir vllm --extra-index-url https://wheels.vllm.ai/nightly/cu130 --extra-index-url https://download.pytorch.org/whl/cu130 --index-strategy unsafe-best-match \
     && uv pip install --no-cache-dir "vllm[audio]" \
     && which vllm
 
